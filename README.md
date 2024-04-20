@@ -6,7 +6,7 @@
     - Notion Database ID
     - Notion Block(Page) ID
     
-###2. main.py 파일 실행
+### 2. main.py 파일 실행
 
 #### [Notion 글]
 
