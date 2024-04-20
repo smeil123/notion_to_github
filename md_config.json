@@ -1,0 +1,34 @@
+{
+    "md_dict" : {
+         "heading_1" : "# "
+        ,"heading_2" : "## "
+        ,"heading_3" : "### "
+        ,"heading_4" : "#### "
+        ,"heading_5" : "##### "
+        ,"heading_6" : "###### "
+        ,"bold" : "**"
+        ,"inline" : "`"
+        ,"italic" : "*"
+        ,"code" : "```"
+        ,"callout" : ">"
+        ,"bulleted_list_item" : "- "
+        ,"numbered_list_item" : "1. "
+        ,"quote" : ">"
+    },
+    "md_dict_double" : {
+        "heading_1": "False",
+        "heading_2": "False",
+        "heading_3": "False",
+        "heading_4": "False",
+        "heading_5": "False",
+        "heading_6": "False",
+        "bold": "True",
+        "inline": "True",
+        "italic": "True",
+        "code": "True",
+        "callout": "False",
+        "bulleted_list_item": "False",
+        "numbered_list_item": "False",
+        "quote": "False"
+    }
+}
