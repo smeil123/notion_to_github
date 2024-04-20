@@ -1,5 +1,7 @@
 # 노션 글을 깃헙으로 연동하기
 
+* 파이썬 버전 : 3.6
+
 ## Usage
 ### 1. config.json 파일 셋팅
     - Notion API 토큰
@@ -19,7 +21,7 @@
 
 ## To-Be
 1. Database에서 플래그 값으로 가져올 Block 선별하기
-
+2. 100개 이상 블록을 호출하면 다시 next block을 찾아야함
 ### 참고
 * *Read More : https://roongstar.tistory.com/manage/newpost/?type=post&returnURL=%2Fmanage%2Fposts%2F*
 * *API 문서 : https://developers.notion.com/reference/get-block-children*

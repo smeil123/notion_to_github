@@ -33,7 +33,7 @@ def set_text_type(o_type, rt_list):
 
     ## 특성 추가
     if o_type in md["md_dict"]:
-        if md["md_dict_double"][o_type] == "True":
+        if md["md_dict_double"][o_type]:
             type_text = md["md_dict"][o_type] + anno_text + md["md_dict"][o_type]
         else:
             type_text = md["md_dict"][o_type] + anno_text
@@ -45,7 +45,7 @@ def set_text_type(o_type, rt_list):
     elif o_type == "paragraph":
         type_text = anno_text
 
-    return type_text + "<br>"
+    return type_text + "\n"
 
 def set_other(o_type,data):
     temp_text = ""
@@ -54,7 +54,7 @@ def set_other(o_type,data):
         temp_text = "_______"
 
     elif o_type == "image" :
-        temp_text = "!["+data["id"]+"]("+data["image"]["file"]["url"]+")"
+        temp_text = "!["+data["id"]+"]("+data["image"]["file"]["url"]+")\n"
 
     return temp_text
 
@@ -89,8 +89,11 @@ def get_title(block_id):
 
     return data['properties']['제목']['title'][0]['plain_text']
 
-def get_data(block_id):
-    url = "https://api.notion.com/v1/blocks/" + block_id + "/children?page_size=100"
+def get_data(block_id,next_cursor):
+    if next_cursor :
+        url = "https://api.notion.com/v1/blocks/" + block_id + "/children?start_cursor="+next_cursor+"&page_size=100"
+    else:
+        url = "https://api.notion.com/v1/blocks/" + block_id + "/children?page_size=100"
     data = requests_url(url)
 
     return data
@@ -109,29 +112,47 @@ def requests_url(url):
     return data
 
 def change_to_md(block_id):
-    data = get_data(block_id)
-    result = notion_to_text(data)
+    next_cursor = None
+    result = []
+    while True:
+        data = get_data(block_id, next_cursor)
+        result = result + notion_to_text(data)
+        
+        ## 100개보다 많은 경우
+        if data['next_cursor'] is None:
+            break
+        next_cursor = data['next_cursor']
+
     return result
 
-## if __name__ == '__main__':
+if __name__ == '__main__':
+    print("test")
 ############################################
-with open('config.json','r') as f:
-    config = json.load(f)
+    with open('config.json','r') as f:
+        config = json.load(f)
 
-with open('md_config.json','r') as f:
-    md = json.load(f)
+    with open('md_config.json','r') as f:
+        md = json.load(f)
 
-block_id=config['block_id']
-api_token = config['api_token']
-database_id = config['database_id']
-notion_version = config['notion_version']
+    api_token = config['api_token']
+    notion_version = config['notion_version']
 
-result = change_to_md(block_id)
-result = "\n".join(str(item) for item in result)
+    ## Block ID 리스트 가져오기
+    with open('block_id.json', 'r',encoding='utf-8') as f:
+        for line in f:
+            # 줄을 JSON으로 파싱
+            block_id_list = json.loads(line)
 
-title=get_title(block_id)
+            print(block_id_list)
 
-with open(title+".md","w",encoding='utf-8') as file:
-    file.write(result)
+    for block_id in block_id_list:
+        print(block_id)
+        result = change_to_md(block_id["id"])
+        result = "\n".join(str(item) for item in result)
 
-print(title," 파일 생성 완료")
+        #title=get_title(block_id["title"])
+
+        with open("./pages/"+block_id["title"]+".md","w",encoding='utf-8') as file:
+            file.write(result)
+
+        print(block_id["title"]," 파일 생성 완료")

@@ -9,26 +9,26 @@
         ,"bold" : "**"
         ,"inline" : "`"
         ,"italic" : "*"
-        ,"code" : "```"
+        ,"code" : "\n ``` \n"
         ,"callout" : ">"
         ,"bulleted_list_item" : "- "
         ,"numbered_list_item" : "1. "
         ,"quote" : ">"
     },
     "md_dict_double" : {
-        "heading_1": "False",
-        "heading_2": "False",
-        "heading_3": "False",
-        "heading_4": "False",
-        "heading_5": "False",
-        "heading_6": "False",
-        "bold": "True",
-        "inline": "True",
-        "italic": "True",
-        "code": "True",
-        "callout": "False",
-        "bulleted_list_item": "False",
-        "numbered_list_item": "False",
-        "quote": "False"
+        "heading_1": false,
+        "heading_2": false,
+        "heading_3": false,
+        "heading_4": false,
+        "heading_5": false,
+        "heading_6": false,
+        "bold": true,
+        "inline": true,
+        "italic": true,
+        "code": true,
+        "callout": false,
+        "bulleted_list_item": false,
+        "numbered_list_item": false,
+        "quote": false
     }
 }
